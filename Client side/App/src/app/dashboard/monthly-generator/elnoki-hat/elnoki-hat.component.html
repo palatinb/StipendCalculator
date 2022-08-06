@@ -1,0 +1,155 @@
+<!-- elnokihatarozat form -->
+<div class="container">
+
+  <mat-horizontal-stepper [linear]="false">
+    <mat-step>
+        <ng-template matStepLabel>Általános</ng-template>
+        <mat-form-field class="field">
+          <mat-label>Kar</mat-label>
+          <mat-select required [(value)]="generateDto.faculty">
+            <mat-option *ngFor="let faculty of faculties" [value]="faculty.modulCodeStart">{{ faculty.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="field">
+          <mat-label>Hónap</mat-label>
+          <mat-select required [(value)]="generateDto.Month">
+            <mat-optgroup label="Tavasz">
+              <mat-option value="02">Február</mat-option>
+              <mat-option value="03">Március</mat-option>
+              <mat-option value="04">Április</mat-option>
+              <mat-option value="05">Május</mat-option>
+              <mat-option value="06">Június</mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="Ősz">
+              <mat-option value="09">Szeptember</mat-option>
+              <mat-option value="10">Október</mat-option>
+              <mat-option value="11">November</mat-option>
+              <mat-option value="12">December</mat-option>
+              <mat-option value="01">Január</mat-option>
+            </mat-optgroup>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="field">
+          <input matInput required type="number" placeholder="ET kiosztható maximum összeg" name="etpay"
+            [(ngModel)]="generateDto.ETPay">
+        </mat-form-field>
+        <mat-form-field class="field">
+          <input matInput required type="text" placeholder="Elnöki határozat iktatószám" name="iktatoszam"
+            [(ngModel)]="generateDto.ElnokiIktato">
+        </mat-form-field>
+        <div class="buttons">
+          <button mat-button matStepperNext class="button">Következő</button>
+        </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Elnök</ng-template>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Elnök neve" name="elnokneve"
+          [(ngModel)]="generateDto.PresidentName">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Elnök neptun kód" name="elnokneptun"
+          [(ngModel)]="generateDto.PresidentNeptun">
+      </mat-form-field>
+      <div class="space"></div>
+      <div class="buttons">
+        <button mat-button matStepperPrevious class="button left">Vissza</button>
+        <button mat-button matStepperNext class="button">Következő</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Alelnök</ng-template>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Alelnök neve" name="alelnokneve"
+          [(ngModel)]="generateDto.VicePresidentName">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Alelnök neptun kód" name="alelnokneptun"
+          [(ngModel)]="generateDto.VicePresidentNeptun">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="number" min="0" step="1" max="100" í placeholder="Alelnök szankció"
+          name="alelnokpercent" [(ngModel)]="generateDto.VicePresidentPercent">
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button matStepperPrevious class="button left">Vissza</button>
+        <button mat-button matStepperNext class="button">Következő</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Gazdasági ET</ng-template>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Gazdasági ET neve" name="gazdneve"
+          [(ngModel)]="generateDto.GazdName">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Gazdasági ET neptun kód" name="gazdneptun"
+          [(ngModel)]="generateDto.GazdNeptun">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="number" min="0" step="1" max="100" placeholder="Gazdasági ET szankció"
+          name="gazdpercent" [(ngModel)]="generateDto.GazdPercent">
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button matStepperPrevious class="button left">Vissza</button>
+        <button mat-button matStepperNext class="button">Következő</button>
+      </div>
+    </mat-step>
+    <mat-step >
+      <ng-template matStepLabel>Éf ET</ng-template>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="ÉF ET neve" name="efneve" [(ngModel)]="generateDto.EfName">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="ÉF ET neptun kód" name="efneptun"
+          [(ngModel)]="generateDto.EfNeptun">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="number" min="0" step="1" max="100" placeholder="ÉF ET szankció" name="efpercent"
+          [(ngModel)]="generateDto.EfPercent">
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button matStepperPrevious class="button left">Vissza</button>
+        <button mat-button matStepperNext class="button">Következő</button>
+      </div>
+    </mat-step>
+    <mat-step *ngIf="isKvk">
+      <ng-template matStepLabel>Kvk</ng-template>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="2. ÉF ET neve" name="ef2neve"
+          [(ngModel)]="generateDto.Ef2_Name">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="2. ÉF ET neptun kód" name="ef2neptun"
+          [(ngModel)]="generateDto.Ef2_Neptun">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="number" min="0" step="1" max="100" placeholder="2. ÉF ET szankció"
+          name="ef2percent" [(ngModel)]="generateDto.Ef2Percent">
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button matStepperPrevious class="button left">Vissza</button>
+        <button mat-button matStepperNext class="button">Következő</button>
+      </div>
+    </mat-step>
+    <mat-step >
+      <ng-template matStepLabel>Pr ET</ng-template>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Pr ET neve" name="prneve" [(ngModel)]="generateDto.PrName">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Pr ET neptun kód" name="prneptun"
+          [(ngModel)]="generateDto.PrNeptun">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput required type="number" min="0" step="1" max="100" placeholder="Pr ET szankció" name="prpercent"
+          [(ngModel)]="generateDto.PrPercent">
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button matStepperPrevious class="button left">Vissza</button>
+        <input type="button" value="Elnöki határozat&#x00A;generálása" (click)="generateCheck()" id="generate" class="button">
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

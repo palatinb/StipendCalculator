@@ -1,0 +1,33 @@
+<div id="container">
+  <header>
+    Ösztöndíjkalkulátor
+  </header>
+  <div id="content">
+    <div id="subheader">
+      Bejelentkezés
+    </div>
+    <img alt="login" src="\assets\img\accountlogo.png">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <div>
+        <div class="input">
+          <mat-form-field>
+            <input matInput class="field" name="name" #name="ngModel" type="text" id="nickinput"
+              placeholder="Felhasználónév" required [(ngModel)]="userModel.username">
+          </mat-form-field>
+        </div>
+        <div class="input">
+          <mat-form-field>
+            <input matInput class="field" name="password" #password="ngModel" [type]="showpass ? 'text' : 'password'"
+              id="passwordinput" placeholder="Jelszó" required [(ngModel)]="userModel.password">
+            <mat-icon (click)="showpass = !showpass" matSuffix [class.clicked-eye]="showpass" class="eye">
+              remove_red_eye</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="buttons">
+          <input class="button" id="signbut" type="submit" value="Bejelentkezés" [disabled]="onSubmitted">
+          <!-- <a href="" class="link">Elfelejtette a jelszavát?</a> -->
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

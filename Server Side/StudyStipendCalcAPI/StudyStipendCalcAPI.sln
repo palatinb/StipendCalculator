@@ -1,0 +1,24 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyStipendCalcAPI", "StudyStipendCalcAPI\StudyStipendCalcAPI.csproj", "{9079F13E-E673-42C8-ACC5-E7A83C801C48}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9079F13E-E673-42C8-ACC5-E7A83C801C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9079F13E-E673-42C8-ACC5-E7A83C801C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9079F13E-E673-42C8-ACC5-E7A83C801C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9079F13E-E673-42C8-ACC5-E7A83C801C48}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.StandardHeader = $2
+		$2.Text = @**********************************************************************;\n* Project           : \n*\n* Program name      : \n*\n* Author            : ${AuthorName}\n*\n* Date created      : ${Date}\n*\n|**********************************************************************;
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,23 @@
+<!-- öcsi form  -->
+<div class="content">
+  <form #ocsiModel="ngForm">
+    <mat-form-field class="field">
+      <mat-label>Félév</mat-label>
+      <mat-select [(value)]="generateDto.SemesterType" required (selectionChange)="disabled = false">
+        <mat-option value="1">Ősz</mat-option>
+        <mat-option value="2">Tavasz</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Kar</mat-label>
+      <mat-select required [(value)]="generateDto.faculty">
+        <mat-option *ngFor="let faculty of faculties" [value]="faculty.modulCodeStart">{{ faculty.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input type="button" value="Ösztöndíjmutatók generálása" class="button" (click)="generateMutato()">
+    <input type="button" value="ÖCSI generálása" class="button" (click)="generateOCSI()">
+  </form>
+</div>

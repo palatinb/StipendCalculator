@@ -1,0 +1,43 @@
+<div class="grid-container">
+  <header>
+    <div id="nav">
+      <nav class="navbar">
+        <ul class="home">
+            <li routerLink="/admin/users" class="button home-button">Ösztöndíj kalkulátor <br><span>Admin</span></li>
+        </ul>
+        <ul class="links">
+          <li routerLink="/admin/dbase" routerLinkActive="active" class="button">Adatbázis feltöltése</li>
+          <li routerLink="/admin/uniadd" routerLinkActive="active" class="button">Egyetem hozzáadása</li>
+          <li routerLink="/admin/users" routerLinkActive="active" class="button">Felhasználók</li>
+          <li routerLink="/dashboard" routerLinkActive="active" class="button">Dashboard</li>
+          <li (click)="exit()" class="button exit">Kilépés</li>
+        </ul>
+
+        <button class="small" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>list</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" class="small-menu">
+            <button mat-menu-item routerLink="/admin/dbase" routerLinkActive="active">
+              Adatbázis feltöltése
+            </button>
+            <button mat-menu-item routerLink="/admin/uniadd" routerLinkActive="active">
+              Egyetem hozzáadása
+            </button>
+            <button mat-menu-item routerLink="/admin/users" routerLinkActive="active">
+              Felhasználók
+            </button>
+            <button mat-menu-item routerLink="/dashboard" routerLinkActive="active">
+                Dashboard
+            </button>
+            <button mat-menu-item (click)="exit()" class="exit">
+                Kilépés
+            </button>
+          </mat-menu>
+      </nav>
+    </div>
+  </header>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+ 
+</div>

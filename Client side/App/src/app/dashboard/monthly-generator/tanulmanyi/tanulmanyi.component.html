@@ -1,0 +1,100 @@
+<div class="content">
+  <div class="inputfields">
+    <form #presidentModel="ngForm" (ngSubmit)="generateCheck()">
+      <mat-form-field class="field">
+        <mat-label>Kar</mat-label>
+        <mat-select required [(value)]="generateDto.faculty">
+          <mat-option *ngFor="let faculty of faculties" [value]="faculty.modulCodeStart">{{ faculty.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Félév</mat-label>
+        <mat-select [(value)]="generateDto.SemesterType" required (selectionChange)="disabled = false">
+          <mat-option value="1">Ősz</mat-option>
+          <mat-option value="2">Tavasz</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <mat-label>Hónap</mat-label>
+        <mat-select [(value)]="generateDto.Month">
+          <mat-optgroup label="Tavasz">
+            <mat-option value="02-03">Február-Március</mat-option>
+            <mat-option value="04">Április</mat-option>
+            <mat-option value="05">Május</mat-option>
+            <mat-option value="06">Június</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Ősz">
+            <mat-option value="09-10">Szeptember-Október</mat-option>
+            <mat-option value="11">November</mat-option>
+            <mat-option value="12">December</mat-option>
+            <mat-option value="01">Január</mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Tanulmányi Bizonylatkísérő iktatószám"
+          name="bizonylatiktatoszam" [(ngModel)]="generateDto.Tan_BizonylatIkatoszam">
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Tanulmányi Témaszám" name="temaszam"
+          [(ngModel)]="generateDto.Tan_Temanumber">
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Funkcióterület" name="funcioterulet"
+          [(ngModel)]="generateDto.FunkcioTerulet">
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Elnök neve" name="elnokneve"
+          [(ngModel)]="generateDto.PresidentName">
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" placeholder="Tanulmányi összesítő iktatószám"
+          name="tanulmanyi_osszesito_iktatoszam" [(ngModel)]="generateDto.Tan_summaryIktatoSzam">
+      </mat-form-field>
+
+      <!-- <mat-checkbox [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" class="field checkbox"
+        (click)="performClick('theFile')">
+        Közéleti ösztöndíj generálása!
+      </mat-checkbox> -->
+      <input type="checkbox" id="cbx" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}"
+        (click)="performClick('theFile')" style="display: none;">
+        <div class="field field2">
+      <label for="cbx" class="check checkbox" style="display:inline-block; margin-left: 0.9em">
+        <svg width="16px" height="16px" viewBox="0 0 18 18">
+          <path
+            d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
+          </path>
+          <polyline points="1 9 7 14 15 4"></polyline>
+        </svg>
+      </label>
+      Közéleti ösztöndíj generálása! <br>
+      <small> Fájlnév: {{fileName}}</small>
+    </div>
+      <mat-form-field class="field">
+        <input matInput required type="text" [disabled]="!checked" placeholder="Közéleti Bizonylatkísérő iktatószám"
+          name="Kozeleti_BizonylatIktatoszam" [(ngModel)]="generateDto.Kozeleti_BizonylatIktatoszam">
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" [disabled]="!checked" placeholder="Közéleti témaszám" name="Koz_Temanumber"
+          [(ngModel)]="generateDto.Koz_Temanumber">
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput required type="text" [disabled]="!checked" placeholder="Közéleti összesítő iktatószám"
+          name="Kozeleti_SummaryIktatoszam" [(ngModel)]="generateDto.Kozeleti_SummaryIktatoszam">
+      </mat-form-field>
+
+      <input type="submit" value="Tanulmányi utaláshoz dokumentumok generálása" class="button">
+      <input type="file" id="theFile" #file style="display: none" (change)="selectFile($event.target.files)" />
+
+    </form>
+  </div>
+</div>

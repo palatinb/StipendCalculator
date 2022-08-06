@@ -1,0 +1,212 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  background: #1e1f26;
+  color: white;
+  padding: 10px 25px;
+  height: 5em;
+}
+
+.content {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  margin: 0;
+  padding: 0;
+}
+
+.footer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+div {
+  display: block;
+}
+
+/* Navigációs felület */
+
+.home {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.home-button {
+  display: block !important;
+  background-color: transparent !important;
+  font-size: 1.4em !important;
+}
+
+.links {
+  float: right;
+}
+
+.button {
+  display: inline;
+  padding: 10px;
+  margin: 2px;
+  font-size: 1em;
+  border-radius: 4px;
+}
+
+.button:hover {
+  transition: 350ms;
+  background-color: #444857;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+  transition: 350ms;
+  background-color: #444857; 
+}
+
+.exit {
+  background-color: rgb(214, 77, 77);
+  border-radius: 3px;
+}
+
+.active {
+  background-color: #444857;
+  color: white;
+  border-radius: 3px;
+}
+
+.active2 {
+  background-color: #1e1f26;
+  color: white;
+  border-radius: 3px;
+}
+
+span {
+  font-size: 0.8em;
+}
+
+.menu {
+  position: absolute;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.95em;
+  display: none;
+  margin: 15px 2px;
+  background-color: #444857;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-color: #1e1f26;
+  z-index: 1001;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+}
+
+.dropdown:hover .menu {
+  transition: 350ms;
+  display: block;
+}
+
+.dropdown:hover .button {
+  background-color: #444857;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.menubutton {
+  list-style-type: none;
+  float: none;
+  background-color: #444857;
+  margin-top: 5px;
+  height: max-content;
+  text-align: center;
+  font-size: 0.95em;
+  padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.menubutton:hover {
+  background-color: #1e1f26;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.menubutton:focus {
+  outline: none;
+  transition: 350ms;
+  background-color: #1e1f26;
+  border-radius: 3px; 
+}
+
+.small {
+  display: none;
+  float: right;
+  background-color: #1e1f26;
+  border: none;
+  width: 70px;
+  height: 60px;
+}
+
+.mat-icon {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.mat-icon:hover {
+  transition: 350ms;
+  background-color: #444857;
+}
+
+.material-icons {
+  font-size: 40px;
+}
+
+::ng-deep .small-menu {
+  background-color: #1e1f26;
+  color: white;
+}
+
+::ng-deep .sub-small-menu {
+  background-color: #1e1f26;
+  color: white;
+}
+
+::ng-deep .mat-menu-item {
+  color: white;
+}
+
+::ng-deep .mat-menu-item:hover {
+  color: white;
+  background-color: #444857 !important;
+}
+
+::ng-deep .exit {
+  background-color: rgb(214, 77, 77);
+}
+
+::ng-deep .mat-menu-item-submenu-trigger::after {
+  border-color: transparent transparent transparent white !important;
+}
+
+/* A navbárt függölegessé teszi és egy oszlopba rendezi a content boxokat */
+
+@media screen and (max-width: 1040px) {
+  .links {
+    display: none;
+  }
+
+  .small {
+    display: block;
+  }
+}

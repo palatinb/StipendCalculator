@@ -1,0 +1,20 @@
+<!--Adatbázis feltöltése-->
+<div class="grid-container">
+    <div class="content">
+        <header>
+            Adatbázis feltöltése
+        </header>
+        <form #dbaseForm="ngForm" class="input" (ngSubmit)="onSubmit()">
+            <input type="file" class="field file" (change)="onFileChange($event.target.files)" id="File" name="File" required>
+            <mat-form-field class="field">
+                <mat-label>Egyetemek</mat-label>
+                <mat-select [(value)]="uploadModel.uni" required>
+                    <mat-option *ngFor="let university of universities" [value]="university.id">{{ university.name }}</mat-option>
+                </mat-select>   
+            </mat-form-field>
+            
+            <input type="submit" class="submitbut" value="Adatbázis feltöltése">
+            
+        </form>
+    </div>
+</div>

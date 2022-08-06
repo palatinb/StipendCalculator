@@ -1,0 +1,70 @@
+<div class="grid-container">
+  <header>
+    <div id="nav">
+      <nav id="navbar">
+        <ul class="home">
+          <li routerLink="/dashboard/search" class="button home-button">Ösztöndíj kalkulátor <br><span>Dashboard</span>
+          </li>
+        </ul>
+        <ul class="links">
+          <li class="button" routerLink="/dashboard/profile" routerLinkActive="active">{{loggedUser}}</li>
+          <li class="button" routerLink="/dashboard/search" routerLinkActive="active">Keresés</li>
+          <li class="button" routerLink="/dashboard/calculator" routerLinkActive="active">Számolás</li>
+          <div class="dropdown">
+            <li class="button custom-button" routerLinkActive="active">Havi riportok
+            </li>
+            <ol class="menu">
+              <li class="menubutton" routerLink="/dashboard/monthly/ocsi-mutato" routerLinkActive="active2">Ösztöndíj
+                mutató & ÖCSI</li>
+              <li class="menubutton" routerLink="/dashboard/monthly/elnoki" routerLinkActive="active2">Elnöki határozat
+              </li>
+              <li class="menubutton" routerLink="/dashboard/monthly/tanulmanyi" routerLinkActive="active2">Tanulmányi
+              </li>
+            </ol>
+          </div>
+          <li class="button" routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">Admin</li>
+          <li class="button exit" (click)="exit()">Kilépés</li>
+        </ul>
+
+
+        <button class="small" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>list</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="small-menu">
+          <button mat-menu-item routerLink="/dashboard/profile" routerLinkActive="active">
+            {{loggedUser}}
+          </button>
+          <button mat-menu-item routerLink="/dashboard/search" routerLinkActive="active">
+            Keresés
+          </button>
+          <button mat-menu-item routerLink="/dashboard/calculator" routerLinkActive="active">
+            Számolás
+          </button>
+          <button mat-menu-item routerLinkActive="active" [matMenuTriggerFor]="monthly">
+            Havi riportok
+          </button>
+          <mat-menu #monthly="matMenu" class="sub-small-menu">
+            <button mat-menu-item routerLink="/dashboard/monthly/ocsi-mutato" routerLinkActive="active2">
+              Ösztöndíj mutató & ÖCSI
+            </button>
+            <button mat-menu-item routerLink="/dashboard/monthly/elnoki" routerLinkActive="active2">
+              Elnöki határozat
+            </button>
+            <button mat-menu-item routerLink="/dashboard/monthly/tanulmanyi" routerLinkActive="active2">
+              Tanulmányi
+            </button>
+          </mat-menu>
+          <button mat-menu-item routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">
+            Admin
+          </button>
+          <button mat-menu-item (click)="exit()" class="exit">
+            Kilépés
+          </button>
+        </mat-menu>
+      </nav>
+    </div>
+  </header>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

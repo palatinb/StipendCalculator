@@ -1,0 +1,202 @@
+<div class="loading-screen-wrapper" *ngIf="IsLoadingFinished">
+  <div class="loading-screen-icon">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="loading-screen-text">
+    Halgatók betőltése!
+  </div>
+</div>
+<div class="grid-container">
+  <mat-form-field id="search">
+    <input matInput class="search" (keyup)="applyFilter($event.target.value)" placeholder="Neptun kód" maxlength="6"
+      style="text-transform:uppercase">
+  </mat-form-field>
+  <div id="table">
+    <div class="content" id="sub-table">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Neptun kód </th>
+          <td mat-cell *matCellDef="let member"> {{member.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="neptunCode">
+          <th mat-header-cell *matHeaderCellDef> Neptun kód </th>
+          <td mat-cell *matCellDef="let member"> {{member.neptunCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="modulCode">
+          <th mat-header-cell *matHeaderCellDef> Modul kód </th>
+          <td mat-cell *matCellDef="let member"> {{member.modulCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="modulName">
+          <th mat-header-cell *matHeaderCellDef> Modul neve </th>
+          <td mat-cell *matCellDef="let member"> {{member.modulName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephelyName">
+          <th mat-header-cell *matHeaderCellDef> Telephely neve </th>
+          <td mat-cell *matCellDef="let member"> {{member.telephelyName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef> Évfolyam </th>
+          <td mat-cell *matCellDef="let member"> {{member.year}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="studentGrop">
+          <th mat-header-cell *matHeaderCellDef> Tankör </th>
+          <td mat-cell *matCellDef="let member"> {{member.studentGrop}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="activeSemester">
+          <th mat-header-cell *matHeaderCellDef> Aktív félévek </th>
+          <td mat-cell *matCellDef="let member"> {{member.activeSemester}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="finishedSemester">
+          <th mat-header-cell *matHeaderCellDef> Befejezett félévek </th>
+          <td mat-cell *matCellDef="let member"> {{member.finishedSemester}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="passiveSemester">
+          <th mat-header-cell *matHeaderCellDef> Passzív félévek </th>
+          <td mat-cell *matCellDef="let member"> {{member.passiveSemester}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="allSemesters">
+          <th mat-header-cell *matHeaderCellDef> Összes félévek </th>
+          <td mat-cell *matCellDef="let member"> {{member.allSemester}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accceptedCredit">
+          <th mat-header-cell *matHeaderCellDef> Elismert kreditek </th>
+          <td mat-cell *matCellDef="let member"> {{member.accceptedCredit}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="earnedCredit">
+          <th mat-header-cell *matHeaderCellDef> Megszerzett kredit </th>
+          <td mat-cell *matCellDef="let member"> {{member.earnedCredit}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="exceptedCredit">
+          <th mat-header-cell *matHeaderCellDef> Elvárt kredit </th>
+          <td mat-cell *matCellDef="let member"> {{member.exceptedCredit}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="creditIndex">
+          <th mat-header-cell *matHeaderCellDef> Ösztöndíj index </th>
+          <td mat-cell *matCellDef="let member"> {{member.creditIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stipendIndex">
+          <th mat-header-cell *matHeaderCellDef> Ösztöndíj mutató </th>
+          <td mat-cell *matCellDef="let member"> {{member.stipendIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="groupIndex">
+          <th mat-header-cell *matHeaderCellDef> ÖCSI </th>
+          <td mat-cell *matCellDef="let member"> {{member.groupIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stipendAmmount">
+          <th mat-header-cell *matHeaderCellDef> Ösztöndíj összege </th>
+          <td mat-cell *matCellDef="let member"> {{member.stipendAmmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="financialState">
+          <th mat-header-cell *matHeaderCellDef> Pénzügyi státusz </th>
+          <td mat-cell *matCellDef="let member"> {{member.financialState}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="yearOfEnrollment">
+          <th mat-header-cell *matHeaderCellDef> Beiratkozás éve </th>
+          <td mat-cell *matCellDef="let member"> {{member.YearOfEnrollment}} </td>
+        </ng-container>
+        <ng-container matColumnDef="disclaimer">
+          <td mat-footer-cell *matFooterCellDef colspan="20">
+            Nincs adat!
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="noresult">
+          <td mat-footer-cell *matFooterCellDef colspan="20">
+            Nincs találat!
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="noNetwork">
+          <td mat-footer-cell *matFooterCellDef colspan="20">
+            Nincs internetkapcsolat!
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let member" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail" [@detailExpand]="member == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="divided">
+                <form (ngSubmit)="EditStudent()">
+                  <header class="header">
+                    <h2>Felhasználó módosítása</h2>
+                    <h3>Neptun kód: {{ EditModel.neptuncode }}</h3>
+                  </header>
+                  <span class="edit">Modul kód: <br> <strong> {{EditModel.modulcode}} </strong></span>
+                  <span class="edit">Modul név: <br> <strong>{{EditModel.modulname}} </strong></span>
+                  <span class="edit">Telephely: <br> <strong>{{EditModel.telephely}} </strong></span>
+                  <span class="edit">Évfolyam: <br> <strong>{{EditModel.year}} </strong></span>
+                  <span class="edit">Tankör: <br> <strong>{{EditModel.studentgroup}} </strong></span>
+                  <span class="edit">Aktív félévek: <br> <strong>{{EditModel.activesemester}} </strong></span>
+                  <span class="edit">Befejezett félévek: <br> <strong>{{EditModel.finishedsemester}} </strong></span>
+                  <span class="edit">Passzív félévek:<br> <strong>{{EditModel.passivesemester}} </strong></span>
+                  <span class="edit">Összes félévek: <br> <strong>{{EditModel.allsemester}} </strong></span>
+                  <span class="edit">Elismert kreditek: <br> <strong>{{EditModel.acceptedcredit}} </strong></span>
+                  <span class="edit">Beiratkozás éve: <br> <strong>{{EditModel.YearOfEnrollment}} </strong></span>
+                  <span class="edit" id="field">
+                    <mat-form-field>
+                      <input matInput type="number" #earnedcredit="ngModel" placeholder="Megszerzett kreditek" name="earnedcredit"
+                        [(ngModel)]="EditModel.earnedcredit">
+                    </mat-form-field>
+                  </span>
+                  <span class="edit">Elvárt kredit: <br> <strong>{{EditModel.exceptedcredit}}</strong></span>
+                  <span class="edit" id="field">
+                    <mat-form-field>
+                      <input matInput type="number" #creditindex="ngModel" placeholder="Ösztöndíj index:" name="creditindex"
+                        [(ngModel)]="EditModel.creditindex">
+                    </mat-form-field>
+                  </span>
+                  <span class="edit">Ösztöndíj mutató: <br> <strong>{{EditModel.stipendindex}}</strong></span>
+                  <span class="edit">ÖCSI: <br> <strong>{{EditModel.groupindex}}</strong></span>
+                  <span class="edit">Ösztöndíj összege: <br> <strong>{{EditModel.stipendamount}}</strong></span>
+                  <span class="edit" id="field">
+                    <mat-form-field>
+                      <mat-select [(ngModel)]="EditModel.financialstate" name="financialstate" #financialstate="ngModel">
+                        <mat-option value="0" selected disabled>--Pénzügyi státusz--</mat-option>
+                        <mat-option value="Állami ösztöndíjas">Állami ösztöndíjas</mat-option>
+                        <mat-option value="Önköltséges">Önköltséges</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </span>
+                  <input type="submit" value="Módosítás" class="button" [disabled]="!earnedcredit.touched && !creditindex.touched && !financialstate.touched">
+                </form>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+
+        <tr id="click" mat-row *matRowDef="let member; columns: displayedColumns;" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === member"
+          (click)="expandedElement = expandedElement === member ? null : member" (click)="EditMember(member)"></tr>
+        <!-- (click)="EditMember(member)" -->
+
+
+        <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row" [hidden]="noData"></tr>
+        <tr mat-footer-row *matFooterRowDef="['noresult']" class="example-third-footer-row" [hidden]="noResult"></tr>
+        <tr mat-footer-row *matFooterRowDef="['noNetwork']" class="noNetwork" [hidden]="noNetwork"></tr>
+        <tr mat-row *matRowDef="let member; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+      </table>
+    </div>
+  </div>
+  <mat-paginator id="paginator" [length]="ResultLength" [pageSize]="25" [pageSizeOptions]="[25, 50, 100]"
+    showFirstLastButtons></mat-paginator>
+</div>

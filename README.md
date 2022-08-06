@@ -1,0 +1,2 @@
+# StipendCalculator
+Egyetemi ösztöndíjkalkulátor

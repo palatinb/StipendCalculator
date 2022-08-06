@@ -1,0 +1,48 @@
+<div class="grid-container">
+  <div class="content" id="profile-content">
+    <div id="sub-profile-content">
+      <div id="legend">Profil:</div>
+      <div id="content">
+        <div>Teljes név: <strong>{{ showModel.name }}</strong></div>
+        <div>Felhasználó név: <strong> {{ showModel.username }} </strong></div>
+        <input type="button" value="Jelszó módosítása" (click)="editUser()" class="button button-2">
+      </div>
+    </div>
+  </div>
+
+  <div id="edit-content" class="content" *ngIf="edit">
+    <div id="sub-edit-content">
+      <header>
+        Felhasználó módosítása
+      </header>
+      <form #Form="ngForm" (ngSubmit)="onSubmit()" class="input" novalidate>
+
+        <div class="field">Teljes név: <strong>{{ editModel.name }}</strong></div>
+
+        <div class="field">Felhasználó név: <strong> {{ editModel.username }} </strong> </div>
+
+        <mat-form-field>
+          <input matInput required [type]="showpassOld ? 'text' : 'password'" (blur)="checkOldPassword()"
+            placeholder="Régi jelszó" name="Password" [(ngModel)]="editModel.password">
+          <mat-icon (click)="showpassOld = !showpassOld" matSuffix [class.clicked-eye]="showpassOld" class="eye">
+            remove_red_eye</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput required [type]="showpassNew ? 'text' : 'password'" placeholder="Új jelszó"
+            name="PasswordHash" [(ngModel)]="editModel.passwordHash">
+          <mat-icon (click)="showpassNew = !showpassNew" matSuffix [class.clicked-eye]="showpassNew" class="eye">
+            remove_red_eye</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput required [type]="showpassNew2 ? 'text' : 'password'" placeholder="Új jelszó mégegyszer"
+            name="PasswordHash2" [(ngModel)]="editModel.passwordHash2">
+          <mat-icon (click)="showpassNew2 = !showpassNew2" matSuffix [class.clicked-eye]="showpassNew2" class="eye">
+            remove_red_eye</mat-icon>
+        </mat-form-field>
+        <input type="submit" class="button" id="subbutton" value="Módosítás">
+      </form>
+    </div>
+  </div>
+</div>

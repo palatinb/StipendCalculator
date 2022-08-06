@@ -1,0 +1,156 @@
+<div class="loading-screen-wrapper" *ngIf="loading">
+  <div class="loading-screen-icon">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="loading-screen-text">
+    <b>{{selectedGroup.key}}</b> csoport {{loadingText}}!
+  </div>
+</div>
+<div class="grid-container">
+  <!--Ösztöndíjszámoláshoz szükséges beviteli mezők-->
+  <div class="content-1 content">
+    <form #caculateModel="ngForm" (ngSubmit)="calculate()">
+      <div class="first-form">
+        <div class="line-1">
+          <mat-form-field class="field left">
+            <mat-label>Félév</mat-label>
+            <mat-select [(value)]="groupModel.semester" required (selectionChange)="changeSemester()">
+              <mat-option value="1">Ősz</mat-option>
+              <mat-option value="2">Tavasz</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="field right">
+            <mat-label>Kar</mat-label>
+            <mat-select [(value)]="groupModel.faculty" required [disabled]="missingSemesterType"
+              (selectionChange)="getGrouppedStudents()">
+              <mat-option *ngFor="let faculty of faculties" [value]="faculty.modulCodeStart">{{ faculty.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="line-2">
+          <mat-form-field class="field">
+            <input matInput type="number" min="0" step="1" class="field" [disabled]="saved"
+              placeholder="A maximum kiosztható ösztöndíj?" name="maxstipend" [(ngModel)]="calculateModel.maxPrice">
+          </mat-form-field>
+          <mat-form-field class="field">
+            <input matInput type="number" min="0" step="1" class="field" [disabled]="saved"
+              placeholder="A minimum kiosztható ösztöndíj?" name="minstipend" [(ngModel)]="calculateModel.minPrice">
+          </mat-form-field>
+        </div>
+        <div class="line-3">
+          <mat-form-field class="field">
+            <input matInput type="number" min="0" step="0.1" class="field" [disabled]="saved" placeholder="Minimum ösztöndíjmutató"
+              name="stipendindex" [(ngModel)]="calculateModel.minStipendIndex"
+              onkeypress='return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)'>
+          </mat-form-field>
+          <mat-form-field class="field">
+            <input matInput type="number" min="0" class="field" [disabled]="saved" placeholder="Input"
+              name="input" [(ngModel)]="calculateModel.input">
+          </mat-form-field>
+        </div>
+
+        <div class="line-4">
+          <mat-form-field class="field" id="group">
+            <mat-label>Csoportok</mat-label>
+            <mat-select [(value)]="selectedGroup" required (selectionChange)="changeGroup()"
+              [disabled]="missingInputFields">
+              <mat-select-trigger> {{ selectedGroupKey}} </mat-select-trigger>
+              <mat-option *ngFor="let group of studentInGroup | keyvalue; let i = index" [value]="group">{{ group.key }}
+                <div class="saved">
+                  <mat-icon *ngIf="CheckAcceptedStates(group.value)">done</mat-icon>
+                  <mat-icon *ngIf="!CheckAcceptedStates(group.value)">clear</mat-icon>
+                </div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div id="buttons">
+            <input type="submit" value="Számol" class="button" [disabled]="saved">
+            <input type="button" value="Elfogad" class="button" (click)="accept()" [disabled]="saved"
+              matTooltip="A gomb megnomásával véglegesíted a halgatók ösztöndíját!" matTooltipPosition="above">
+            <input type="button" value="Újrakezdés" class="button large-button" (click)="reset()" [disabled]="!saved"
+              matTooltip="Visszaálítja az addot csoportnak az ÖCSI és Ösztöndíj értékét nullára!"
+              matTooltipPosition="above">
+
+          </div>
+        </div>
+      </div>
+
+      <!--Statisztikai adatok megjlenítésére szolgál ehhez a propertyket meg kell majd még csinálni-->
+
+      <div class="second-form">
+        <div class="statistic-column-1">
+            <mat-form-field class="statistic">
+            <input matInput type="number" class="field field2" placeholder="Keret 5 hónapra" name="Keretöthónapra"
+              [(ngModel)]="staticModel.fivemonth" (ngModelChange)="CalculateAllStudGroup()">
+          </mat-form-field>
+          <div class="statistic"> Keret 1 hónapra: <br> <strong>{{ staticModel.onemonth | number:'1.' }}</strong> </div>
+          <div class="statistic"> Maradvány %: <br> <strong>{{ staticModel.remnantpercent }}%</strong> </div>
+        </div>
+        <div class="statistic-column-2">
+          <div class="statistic"> 1 havi utalás: <br> <strong>{{ staticModel.onetransfer }} </strong> </div>
+          <div class="statistic"> Maradvány: <br> <strong> {{ staticModel.remnant }}</strong> </div>
+          <div class="statistic"> Összes jogosult: <br> <strong>{{ staticModel.alleligble }}</strong> </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Hallgatók megjelenítése táblázatban az ösztöndfíj ellenőrzéséhez(datasource-t használja) -->
+  <div class="content-2 content">
+    <div>
+
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" [trackBy]=trackBy>
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef> Index </th>
+          <td mat-cell *matCellDef="let index = index"> {{index+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="neptuncode">
+          <th mat-header-cell *matHeaderCellDef> Neptun kód </th>
+          <td mat-cell *matCellDef="let member"> {{member.neptunCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stipendindex">
+          <th mat-header-cell *matHeaderCellDef> Ösztöndíj mutató </th>
+          <td mat-cell *matCellDef="let member"> {{member.stipendIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="groupIndex">
+          <th mat-header-cell *matHeaderCellDef> ÖCSI </th>
+          <td mat-cell *matCellDef="let member"> {{member.groupIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef> Összeg </th>
+          <td mat-cell *matCellDef="let member"> {{member.stipendAmmount}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr id="click" mat-row *matRowDef="let member; columns: displayedColumns;"
+          [ngClass]="{'negative': member.stipendAmmount == 0}"></tr>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- <script type="text/javascript">
+      function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+          textbox.addEventListener(event, function() {
+            if (inputFilter(this.value)) {
+              this.oldValue = this.value;
+              this.oldSelectionStart = this.selectionStart;
+              this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+              this.value = this.oldValue;
+              this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            }
+          });
+        });
+      }
+
+      setInputFilter(document.getElementById("minStipindex"), function(value) {
+  return /^-?\d*[.,]?\d*$/.test(value); });
+    </script> -->

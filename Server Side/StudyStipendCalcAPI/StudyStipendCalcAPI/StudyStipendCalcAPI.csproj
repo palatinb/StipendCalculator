@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.7">
+      <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
+      <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
+    </PackageReference>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.6" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.9.1" />
+    <PackageReference Include="DotNetZip" Version="1.13.4" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Services\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="DTOs\UserDTOs\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Resources\" />
+    <Folder Include="DTOs\FileDtos\" />
+    <Folder Include="DTOs\StudentDtos\" />
+    <Folder Include="Services\GeneratorServices\" />
+    <Folder Include="Resources\1\" />
+    <Folder Include="Resources\1\Templates\" />
+    <Folder Include="Resources\1\1\" />
+    <Folder Include="Services\CalculatorServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\CalculatorService\AmkLogic.cs" />
+    <Compile Remove="Helpers\FacultyHelper.cs" />
+    <Compile Remove="DTOs\UserDTOs\UserStorageDto.cs" />
+    <Compile Remove="Helpers\AddDbConnStr.cs" />
+  </ItemGroup>
+</Project>

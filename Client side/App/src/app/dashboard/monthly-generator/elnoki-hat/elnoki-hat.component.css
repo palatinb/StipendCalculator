@@ -1,0 +1,66 @@
+
+
+.container {
+	border: 1px solid #1e1f26;
+	border-radius: 3px;
+	background-color: #fff;
+	box-shadow: 0 0 18px rgba(0, 0, 0, .2);
+	padding: 1px;
+	margin: 0;
+	min-height: 450px
+}
+
+.button {
+	display: block;
+	border-radius: 0;
+	background-color: #1e1f26;
+	color: #fff;
+	border-color: #1e1f26;
+	width: 180px;
+	height: 35px;
+	float: right;
+	margin: 0 20px;
+}
+
+.button.left {
+	float: left
+}
+
+.buttons:after {
+	content: '';
+	clear: both;
+	display: table;
+}
+
+#generate {
+	height: auto
+}
+
+.button:hover {
+	transition: .3s;
+	background-color: #444857;
+	border-radius: 3px;
+	cursor: pointer
+}
+
+.space {
+	height: 65px;
+	margin: 10px auto;
+	width: 95%;
+}
+
+form div {
+	width: 100%
+}
+
+.field {
+	width: 95%;
+	margin: 10px auto;
+	display: block
+}
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #1e1f26; 
+}
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+  background-color: #1e1f26 !important;
+}

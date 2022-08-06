@@ -1,0 +1,20 @@
+
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-column-gap: 15px;
+	grid-row-gap: 15px;
+	background: #fff;
+	max-width: 70%;
+	min-height: 380px;
+	border-radius: 4px;
+	box-shadow: 0 0 18px rgba(0, 0, 0, .2);
+	margin: 20px auto;
+	padding: 10px
+}
+
+.router-outlet {
+	position: absolute
+}
+
